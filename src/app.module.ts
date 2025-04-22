@@ -1,0 +1,91 @@
+import { CacheModule } from '@nestjs/cache-manager';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+
+import { AuditModule } from '@/audit/audit.module';
+import { EventsModule } from '@/events/events.module';
+import { SecurityModule } from '@/security/security.module';
+import { SecurityService } from '@/security/services/security.service';
+
+import { AuthModule } from './auth/auth.module';
+import { AzureADAuthGuard } from './auth/strategies/azuread-auth.guard';
+import { eventConfig } from './core/config/event.config';
+import { MongooseModules } from './databases/mongoose/database.module';
+import { HealthModule } from './health/health.module';
+import { AuditInterceptorModule } from './interceptors/audit.interceptor.module';
+import { LoggerModule } from './logger/logger.module';
+import { RequestContextMiddleware } from './middlewares/common/request-context.middleware';
+import { IpFilterMiddleware } from './middlewares/security/ip-filter.middleware';
+import { DevicesModule } from './modules/devices/devices.module';
+import { ProfileModule } from './modules/profiles/profile.module';
+import { PromotionModule } from './modules/promotion/promotion.module';
+import { CitiesModule } from './modules/utils/cities/cities.module';
+import { MSGraphModule } from './modules/utils/msgraph/msgraph.module';
+import { WorkspaceModule } from './modules/workspaces/workspace.module';
+import { TelemetryModule } from './telemetry/telemetry.module';
+
+@Module({
+	imports: [
+		ConfigModule.forRoot({
+			isGlobal: true,
+			load: [eventConfig],
+		}),
+		CacheModule.register({
+			isGlobal: true,
+			ttl: 0, // Desactivado por defecto
+			max: 100, // máximo número de items en cache
+		}),
+		ThrottlerModule.forRoot([
+			{
+				name: 'short', // Para endpoints sensibles (auth, login, etc.)
+				ttl: 60000, // 1 minuto
+				limit: 300, // 300 requests por minuto (1 por segundo)
+			},
+			{
+				name: 'medium', // Para operaciones regulares
+				ttl: 300000, // 5 minutos
+				limit: 1500, // 1500 requests por 5 minutos (1 por segundo)
+			},
+			{
+				name: 'long', // Para operaciones pesadas o batch
+				ttl: 3600000, // 1 hora
+				limit: 7200, // 7200 requests por hora (1 por segundo)
+			},
+		]),
+		AuditInterceptorModule,
+		MongooseModules,
+		SecurityModule,
+		AuthModule,
+		HealthModule,
+		CitiesModule,
+		ProfileModule,
+		WorkspaceModule,
+		MSGraphModule,
+		PromotionModule,
+		AuditModule,
+		LoggerModule,
+		TelemetryModule,
+		EventsModule,
+		DevicesModule,
+	],
+	providers: [
+		{
+			provide: APP_GUARD,
+			useClass: ThrottlerGuard,
+		},
+		{
+			provide: APP_GUARD,
+			useClass: AzureADAuthGuard,
+		},
+		SecurityService,
+	],
+})
+export class AppModule implements NestModule {
+	constructor(private readonly securityService: SecurityService) {}
+
+	configure(consumer: MiddlewareConsumer) {
+		consumer.apply(RequestContextMiddleware, IpFilterMiddleware).forRoutes('*');
+	}
+}
