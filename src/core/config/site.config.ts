@@ -2,10 +2,10 @@ import { registerAs } from '@nestjs/config';
 import { DocumentBuilder } from '@nestjs/swagger';
 
 export const swaggerConfig = new DocumentBuilder()
-	.setTitle('API SAEIA 1.0')
-	.setDescription('API Rest para SAEIA')
+	.setTitle('API SapiraAI 1.0')
+	.setDescription('API Rest para SapiraAI')
 	.setVersion('1.0.0')
-	.setContact('SYSCODE', 'https://github.com/syscode', 'sebastian.gonzalez@syscode.cloud')
+	.setContact('Lenosoft', 'https://github.com/sapira-ai', 'leonmontero@lenosoft.cl')
 	.addBearerAuth()
 	.build();
 

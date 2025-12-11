@@ -13,12 +13,14 @@ import { AuthModule } from './auth/auth.module';
 import { AzureADAuthGuard } from './auth/strategies/azuread-auth.guard';
 import { eventConfig } from './core/config/event.config';
 import { MongooseModules } from './databases/mongoose/database.module';
+import { PostgreSQLDatabaseModule } from './databases/postgresql/database.module';
 import { HealthModule } from './health/health.module';
 import { AuditInterceptorModule } from './interceptors/audit.interceptor.module';
 import { LoggerModule } from './logger/logger.module';
 import { RequestContextMiddleware } from './middlewares/common/request-context.middleware';
 import { IpFilterMiddleware } from './middlewares/security/ip-filter.middleware';
 import { DevicesModule } from './modules/devices/devices.module';
+import { OdooModule } from './modules/odoo/odoo.module';
 import { ProfileModule } from './modules/profiles/profile.module';
 import { PromotionModule } from './modules/promotion/promotion.module';
 import { CitiesModule } from './modules/utils/cities/cities.module';
@@ -69,6 +71,8 @@ import { TelemetryModule } from './telemetry/telemetry.module';
 		TelemetryModule,
 		EventsModule,
 		DevicesModule,
+		PostgreSQLDatabaseModule,
+		OdooModule,
 	],
 	providers: [
 		{

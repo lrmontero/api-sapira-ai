@@ -1,36 +1,38 @@
-# API SAEIA - Sistema de Administración Educacional e Inteligencia Artificial
-
-<p align="center">
-  <img src="https://www.mineduc.cl/wp-content/uploads/sites/19/2018/01/logo-gobierno-chile-mineduc.jpg" width="400" alt="Ministerio de Educación Logo" />
-</p>
-
-<p align="center">
-  <img src="https://www.syscode.cl/wp-content/uploads/2022/08/logo-syscode.png" width="200" alt="Syscode Logo" />
-</p>
+# API Sapi - Gestión de Ingresos Recurrentes para SaaS
 
 ## Descripción
 
-API SAEIA es un backend desarrollado por **Syscode** para el **Ministerio de Educación de Chile**. Este sistema proporciona servicios para la administración educacional utilizando tecnologías modernas e inteligencia artificial.
+API Sapi es un backend robusto diseñado para gestionar ingresos recurrentes de empresas SaaS. Esta aplicación proporciona servicios completos para el manejo de suscripciones, facturación automatizada, métricas de ingresos y análisis de retención de clientes.
 
 Este proyecto está desarrollado con [NestJS](https://nestjs.com/), un framework progresivo de Node.js para construir aplicaciones del lado del servidor eficientes y escalables.
 
 ## Información del Proyecto
 
-- **Nombre:** saeia-api
-- **Versión:** 0.0.1
-- **Autor:** Syscode
-- **Licencia:** Propietaria - Todos los derechos reservados
+- **Nombre:** sapi-api
+- **Versión:** 1.0.0
+- **Descripción:** API para gestión de ingresos recurrentes SaaS
+- **Autor:** León Montero
+- **Licencia:** MIT
 
-> **NOTA IMPORTANTE**: Este software es propiedad de Syscode y ha sido desarrollado exclusivamente para el Ministerio de Educación de Chile. Cualquier uso, reproducción o distribución no autorizada está estrictamente prohibida.
+## Características Principales
 
-## Requisitos Técnicos
+- 🔄 **Gestión de Suscripciones**: Manejo completo del ciclo de vida de suscripciones
+- 💰 **Facturación Automatizada**: Generación automática de facturas y cobros recurrentes
+- 📊 **Métricas de Ingresos**: Análisis detallado de MRR, ARR, churn rate y LTV
+- 🔐 **Autenticación Segura**: Integración con Azure B2C y MSAL
+- 📈 **Analytics Avanzados**: Reportes y dashboards de performance financiera
+- 🔔 **Notificaciones**: Sistema de alertas para eventos críticos del negocio
 
-```bash
-# Versiones requeridas
-Node.js: v21.6.2 o superior
-npm: v10.2.4 o superior
-yarn: v4.4.0 o superior
-```
+## Stack Tecnológico
+
+- **Framework:** NestJS 14+
+- **Lenguaje:** TypeScript 5.6.2
+- **Runtime:** Node.js 22.14+
+- **Gestor de Paquetes:** Yarn 4.5.1
+- **Base de Datos:** MongoDB
+- **Autenticación:** Azure B2C + MSAL
+- **Monitoreo:** Application Insights
+- **CI/CD:** GitHub Actions + Docker
 
 ## Instalación
 
