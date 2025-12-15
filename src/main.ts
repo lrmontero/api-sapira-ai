@@ -107,15 +107,7 @@ async function bootstrap() {
 
 	// Configuración específica de CORS
 	app.enableCors({
-		origin: [
-			'http://localhost:3000',
-			'http://localhost:3001',
-			'http://localhost:8080',
-			'http://localhost:9001',
-			'http://localhost:9002',
-			/\.vercel\.app$/,
-			process.env.FRONTEND_URL,
-		],
+		origin: [/\.vercel\.app$/, process.env.FRONT_BASE_URL],
 		methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
 		allowedHeaders: [
 			'Origin',
